@@ -4,9 +4,11 @@ const { nanoid } = require("nanoid");
 
 const contactsPath = path.join("db", "contacts.json");
 
-// TODO: задокументировать каждую функцию
+/**
+ * @param {}
+ * @returns {array}
+ */
 async function listContacts() {
-  // Возвращает массив контактов.
   try {
     const contacts = await readFile(contactsPath);
     const jsonContacts = JSON.parse(contacts);
@@ -18,8 +20,11 @@ async function listContacts() {
   }
 }
 
+/**
+ * @param {string} - contactId - id of contact
+ * @returns {object}
+ */
 async function getContactById(contactId) {
-  // Возвращает объект контакта с таким id. Возвращает null, если объект с таким id не найден.
   const allContacts = await readFile(contactsPath);
 
   const jsonContacts = JSON.parse(allContacts);
@@ -35,8 +40,11 @@ async function getContactById(contactId) {
   return curContact;
 }
 
+/**
+ * @param {string} - contactId - id of contact
+ * @returns {object}
+ */
 async function removeContact(contactId) {
-  // Возвращает объект удаленного контакта. Возвращает null, если объект с таким id не найден.
   const newPathFile = path.join("db", "newContacts.json");
   let removedContact = null;
 
@@ -59,14 +67,16 @@ async function removeContact(contactId) {
 
   const removedContacts = await readFile(newPathFile);
 
-  // console.log(JSON.parse(removedContacts));
   console.log(removedContact);
 
   return removedContact;
 }
 
+/**
+ * @param {string, string, string} - name of contact, email of contact, phone number of contact
+ * @returns {object}
+ */
 async function addContact(name, email, phone) {
-  // Возвращает объект добавленного контакта.
   const newPathFile = path.join("db", "newContacts.json");
   const createdContact = {
     id: nanoid(),
